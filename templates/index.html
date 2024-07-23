@@ -1,0 +1,102 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Anorganic Waste</title>
+    <link rel="icon" href="{{ url_for('static', filename = '/assets/favicon.ico')}}" />
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename = 'css/style.css')}}" />
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</head>
+
+<body>
+    {% block content %}
+    {% if loading_display %}
+    <div class="loading-overlay" id="loadingOverlay" style="display: {{loading_display}}">
+        <div class="loading-spinner"></div>
+    </div>
+    {% else %}
+    <div class="loading-overlay" id="loadingOverlay">
+        <div class="loading-spinner"></div>
+    </div>
+    {% endif %}
+    <div id="slider" class="slider">
+        <div class="row fullheight slide">
+            <div class="col-6 fullheight left-to-right">
+                <h1 class="judul left-to-right">Anorganic Waste</h1>
+                <div class="action-button-home">
+                    <form action="/data" method="GET" role="form" enctype="multipart/form-data">
+                        <button type="submit">Data Anorganic Waste</button>
+                    </form>
+
+
+                </div>
+                <div class="content-info left-to-right">
+                    <form action="/" method="POST" role="form" enctype="multipart/form-data">
+                        <div class="info-wrapper left-to-right">
+<!--                            <select name="model" id="model" required>-->
+<!--                                <option disabled selected value="">Please select models</option>-->
+<!--                                <option value="models/xception_fine_tuning_cw10.h5">xception_fine_tuning_cw10.h5-->
+<!--                                </option>-->
+<!--                                <option value="models/densenet201_fine_tuning_cw10.h5">densenet201_fine_tuning_cw10.h5-->
+<!--                                </option>-->
+<!--                            </select>-->
+                            <input type="file" accept="image/*" id="img" name="img" required />
+                            <button type="submit" onclick="submitButton()">Submit</button>
+                        </div>
+                    </form>
+                </div>
+
+                <div class="content-info left-to-right" style="margin-top: 2%; text-align: center">
+                    {% if img_preview %}
+                    <img id="imagePreview" style="width: 10vw; margin-bottom: 1%" src="{{img_preview}}" />
+                    {% endif %}
+                    {% if data %}
+                    <p>Clarification result: {{ data }} , {{ probabilities }}</p>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="col-6 fullheight img-col"
+                style="background-image: linear-gradient(to top right, #22c1c3, #6198be)">
+                <div class="content-img">
+                    <div class="img-wrapper right-to-left">
+                        <div class="bounce">
+                            <img src="{{ url_for('static', filename = 'assets/img_content.png')}}"
+                                alt="placeholder+image" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <script>
+                function submitButton() {
+                    var modelSelect = document.getElementById("model");
+                    var imageInput = document.getElementById("img");
+
+                    if (modelSelect.value === "") {
+                        Swal.fire({
+                            icon: 'warning',
+                            title: 'Oops...',
+                            text: 'Please select a model before submitting',
+                        });
+                        return;
+                    } else if (imageInput.files.length === 0) {
+                        Swal.fire({
+                            icon: 'warning',
+                            title: 'Oops...',
+                            text: 'Please choose a upload an image',
+                        });
+                        return;
+                    }
+
+                    var loadingOverlay = document.getElementById("loadingOverlay");
+                    loadingOverlay.style.display = "flex";
+                }
+            </script>
+        </div>
+    </div>
+    <script type="text/javascript" src="{{ url_for('static', filename = 'js/index.js') }}"></script>
+    {% endblock %}
+</body>
+
+</html>

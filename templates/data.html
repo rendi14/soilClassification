@@ -1,0 +1,64 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Data Anorganic Waste</title>
+    <link rel="icon" href="{{ url_for('static', filename = '/assets/favicon.ico')}}" />
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename = 'css/style.css')}}" />
+</head>
+
+<body>
+    {% block content %}
+    <div id="slider" class="slider">
+        <div class="row fullheight slide">
+            <div class="col-6 fullheight left-to-right">
+                <h1 class="judul left-to-right">Data Anorganic Waste</h1>
+                <div class="left-to-right">
+                    <div class="action-button">
+                        <form action="/" method="GET" role="form" enctype="multipart/form-data">
+                            <button type="submit">Clarification</button>
+                        </form>
+                    </div>
+                    <div class="table-container">
+                        <table class="tabel-data">
+                            <tr>
+                                <th>Model</th>
+                                <th>Class</th>
+                                <th>Probabilities</th>
+                                <th>Image</th>
+                                <th>Date</th>
+                            </tr>
+                            {% for row in history_data %}
+                            <tr>
+                                <td>{{ row[1] }}</td>
+                                <td>{{ row[2] }}</td>
+                                <td>{{ row[3] }}</td>
+                                <td>
+                                    <img style="width: 5vw; margin-bottom: 1%" src="static/{{ row[4] }}" />
+                                </td>
+                                <td>{{ row[5] }}</td>
+                            </tr>
+                            {% endfor %}
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6 fullheight img-col"
+                style="background-image: linear-gradient(to top right, #22c1c3, #6198be)">
+                <div class="content-img">
+                    <div class="img-wrapper right-to-left">
+                        <div class="bounce">
+                            <img src="{{ url_for('static', filename = 'assets/img_content.png')}}"
+                                alt="placeholder+image" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript" src="{{ url_for('static', filename = 'js/index.js') }}"></script>
+    {% endblock %}
+</body>
+
+</html>
