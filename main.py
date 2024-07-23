@@ -39,7 +39,6 @@ def predict_upload():
                            columns=['contrast', 'dissimilarity', 'homogeneity', 'ASM', 'energy', 'correlation'])
 
     reshaped_data = np.array(df_features)
-    scaler_load.fit(reshaped_data)
     features_scaled = scaler_load.transform(reshaped_data)
     prediction = model_elm100_load.elm_predict(features_scaled)[0]
 
